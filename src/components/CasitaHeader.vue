@@ -85,10 +85,16 @@ onUnmounted(() => {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0.5em 1.1em;
+  justify-content: center;
+  padding: 0.7em 1.1em;
   position: relative;
 }
+.logo {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+}
+
 .logo img {
   height: 56px;
   width: auto;
@@ -134,26 +140,29 @@ onUnmounted(() => {
 }
 /* MENÚ SLIDE, MOBILE FIRST */
 nav {
-  /* Siempre display: flex */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.99);
+  box-shadow: 0 8px 32px #00bfff18;
+  border-radius: 0 0 1.5em 1.5em;
   display: flex;
   flex-direction: column;
-  /* ...resto de estilos mobile... */
-  position: fixed;
-  top: 0;
-  right: -110vw;
-  height: 100vh;
-  width: 70vw;
-  max-width: 320px;
-  background: var(--casita-blanco);
-  box-shadow: -2px 0 32px #00bfff29;
-  align-items: flex-start;
-  padding: 5.5em 1.4em 2em 1.8em;
-  gap: 1.1em;
+  align-items: stretch;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    max-height 0.39s cubic-bezier(0.77, 0, 0.18, 1),
+    opacity 0.19s;
   z-index: 1100;
-  transition: right 0.34s cubic-bezier(0.75, -0.02, 0.3, 1.07);
 }
 nav.open {
-  right: 0;
+  max-height: 330px; /* ajusta según la cantidad de links */
+  opacity: 1;
+  pointer-events: auto;
 }
 nav a {
   color: var(--casita-turquesa);

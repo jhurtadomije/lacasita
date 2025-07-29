@@ -1,20 +1,23 @@
 <template>
-  <section>
-    <h1>Contacto</h1>
-    <form>
-      <label>
-        Nombre:
-        <input type="text" name="nombre" required />
-      </label>
-      <label>
-        Email:
-        <input type="email" name="email" required />
-      </label>
-      <label>
-        Mensaje:
-        <textarea name="mensaje" required></textarea>
-      </label>
-      <button class="btn-primary" type="submit">Enviar</button>
-    </form>
+  <section class="contacto-section">
+    <ContactoForm />
   </section>
 </template>
+
+<script setup>
+import ContactoForm from '@/components/ContactoForm.vue'
+</script>
+
+<style scoped>
+.contacto-section {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    100deg,
+    var(--casita-turquesa-suave) 80%,
+    var(--casita-rosa-suave) 100%
+  );
+}
+</style>

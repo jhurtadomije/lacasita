@@ -1,15 +1,20 @@
 <template>
+  <div class="junta-badge">
+    <img src="@/assets/img/junta-andalucia-logo.png" alt="Junta de Andalucía" />
+    <span>Centro adherido a la Junta de Andalucía</span>
+  </div>
   <!-- HERO principal -->
   <section class="hero">
     <video class="hero-video-bg" :src="videoHeroBg" autoplay loop muted playsinline></video>
     <div class="hero-content">
       <h1>Educación Infantil Creativa en Maracena</h1>
       <p>Cariño, aprendizaje y diversión desde 0 a 3 años</p>
-      <router-link to="/contacto" class="btn-primary hero-cta">Solicita visita</router-link>
+      <router-link to="/contacto" class="btn-primary btn-cta-pulse">Solicita visita</router-link>
     </div>
   </section>
 
   <!-- SOBRE NOSOTROS -->
+
   <section class="about-home container">
     <div class="about-grid">
       <div class="about-img">
@@ -215,8 +220,30 @@ const videoHeroBg = new URL('@/assets/videos/hero-bg.mp4', import.meta.url).href
 }
 .hero-content p {
   font-size: 1.2rem;
+  z-index: 7;
   margin-bottom: 1.2em;
 }
+.junta-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+  margin: 1em 0 0.7em 0;
+  background: #6af308ff;
+  color: #b7428aff;
+  padding: 0.45em 1.2em;
+  border-radius: 1.3em;
+  font-weight: 700;
+  font-size: 1.05em;
+  box-shadow: 0 2px 12px #a4ce3933;
+  z-index: 4;
+}
+.junta-badge img {
+  height: 28px;
+  width: auto;
+  margin-right: 0.3em;
+  z-index: 3;
+}
+
 .hero::before {
   content: '';
   position: absolute;
@@ -250,6 +277,7 @@ const videoHeroBg = new URL('@/assets/videos/hero-bg.mp4', import.meta.url).href
 }
 
 /* About */
+
 .about-home {
   margin: 3.5em auto 2em auto;
   background: linear-gradient(

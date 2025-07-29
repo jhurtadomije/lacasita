@@ -1,0 +1,33 @@
+.btn-primary {
+  background: var(--casita-naranja);
+  color: var(--casita-blanco);
+  padding: 0.75em 2em;
+  border-radius: 2em;
+  font-weight: 600;
+  box-shadow: 0 2px 12px #f7931e33;
+  transition:
+    background 0.2s,
+    box-shadow 0.2s;
+}
+
+.btn-primary:hover {
+  background: var(--casita-rosa);
+  box-shadow: 0 4px 24px #ff4da633;
+}
+
+.btn-secondary {
+  background: var(--casita-verde);
+  color: var(--casita-blanco);
+  padding: 0.75em 2em;
+  border-radius: 2em;
+  font-weight: 600;
+  box-shadow: 0 2px 12px #a4ce3933;
+  transition:
+    background 0.2s,
+    box-shadow 0.2s;
+}
+
+.btn-secondary:hover {
+  background: var(--casita-turquesa);
+  box-shadow: 0 4px 24px #00bfff33;
+}

@@ -1,0 +1,17 @@
+:root {
+  --casita-turquesa: #00bfff;
+  --casita-verde: #a4ce39;
+  --casita-naranja: #f7931e;
+  --casita-rosa: #ff4da6;
+
+  --casita-turquesa-suave: #a9eaff;
+  --casita-verde-suave: #e5f4d2;
+  --casita-naranja-suave: #ffdfbe;
+  --casita-rosa-suave: #ffd2ea;
+
+  --casita-blanco: #fff;
+  --casita-gris: #f4f4f4;
+  --casita-negro: #222;
+
+  --font-main: 'Poppins', Arial, sans-serif;
+}

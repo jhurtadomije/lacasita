@@ -1,0 +1,49 @@
+@import './variables.css';
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-main);
+  background: var(--casita-turquesa-suave);
+  color: var(--casita-negro);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-main);
+  color: var(--casita-turquesa);
+  margin-top: 0;
+}
+
+a {
+  color: var(--casita-rosa);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--casita-naranja);
+}
+
+button {
+  font-family: var(--font-main);
+  border: none;
+  cursor: pointer;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}

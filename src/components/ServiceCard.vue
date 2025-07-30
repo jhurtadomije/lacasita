@@ -36,45 +36,52 @@ const flipped = ref(false)
 
 <style scoped>
 .service-flip-card {
-  width: 100%;
-  max-width: 380px;
-  min-height: 370px;
+  width: 97vw;
+  max-width: 420px;
+  min-width: 220px;
+  min-height: 20em;
+  height: 30em;
   perspective: 1200px;
   cursor: pointer;
-  margin: auto;
+  margin: 0 auto 1.2em auto;
+  transition:
+    box-shadow 0.16s,
+    transform 0.15s;
+  display: flex;
 }
+
 .service-flip-card-inner {
   position: relative;
   width: 100%;
   height: 100%;
-  min-height: 370px;
+  min-height: 20em;
   transition: transform 0.64s cubic-bezier(0.53, -0.02, 0.31, 1.09);
   transform-style: preserve-3d;
 }
+
 .service-flip-card.flipped .service-flip-card-inner {
   transform: rotateY(180deg);
 }
 
-/* --- Caras de la card --- */
 .service-flip-card-front,
 .service-flip-card-back {
   position: absolute;
   width: 100%;
   height: 100%;
-  min-height: 370px;
-  max-height: 370px;
-  overflow: hidden;
-  padding: 2.1em 1.4em 2.3em 1.4em;
-  border-radius: 2em;
+  min-height: 20em;
+  background: #fff;
+  border-radius: 1.5em;
   box-sizing: border-box;
-  box-shadow: 0 4px 18px #00bfff22;
+  box-shadow: 0 2px 18px #00bfff22;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  padding: 1.4em 1em 1.4em 1em;
   backface-visibility: hidden;
   transition: box-shadow 0.2s;
 }
+
 .service-flip-card-front {
   z-index: 2;
   background: linear-gradient(
@@ -91,9 +98,9 @@ const flipped = ref(false)
 
 /* --- Icono y títulos --- */
 .service-icon {
-  font-size: 2.7em;
+  font-size: 3.2em;
   margin-bottom: 1em;
-  margin-top: 0.9em;
+  margin-top: 0.5em;
   display: block;
 }
 h3 {
@@ -105,13 +112,13 @@ h3 {
 }
 .service-flip-card-front p,
 .service-flip-card-back p {
-  font-size: 1.04em;
+  font-size: 1.12em;
   text-align: center;
-  margin-bottom: 0.8em;
+  margin-bottom: 1.1em;
   margin-top: 0;
-  flex: 1 1 auto;
-  max-height: 7.2em;
-  overflow-y: auto;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
 }
 
 /* --- Botones de acción --- */
@@ -119,7 +126,7 @@ h3 {
 .back-tip {
   display: inline-block;
   margin-top: auto;
-  margin-bottom: 0.6em;
+  margin-bottom: 0.7em;
   color: var(--casita-naranja, #f7931e);
   background: var(--casita-blanco, #fff);
   font-weight: 600;
@@ -134,6 +141,7 @@ h3 {
     box-shadow 0.18s,
     transform 0.14s;
   user-select: none;
+  align-self: center;
 }
 .service-flip-card-front:hover .ver-mas,
 .service-flip-card-front:focus .ver-mas,
@@ -146,13 +154,42 @@ h3 {
 }
 
 /* --- Responsive --- */
-@media (max-width: 600px) {
-  .service-flip-card,
+@media (max-width: 700px) {
+  .service-flip-card {
+    width: 98vw;
+    max-width: 98vw;
+    min-width: 92vw;
+    min-height: 20em;
+  }
   .service-flip-card-inner,
   .service-flip-card-front,
   .service-flip-card-back {
-    min-height: 220px;
-    max-width: 98vw;
+    min-height: 20em;
+    padding: 1.1em 0.7em 1.1em 0.7em;
+  }
+  .service-icon {
+    font-size: 3.7em !important;
+  }
+  h3 {
+    font-size: 1.17em !important;
+  }
+  .service-flip-card-front p,
+  .service-flip-card-back p {
+    font-size: 1.13em !important;
+  }
+}
+@media (min-width: 900px) {
+  .service-flip-card {
+    width: 100%;
+    max-width: 440px;
+    min-height: 22em;
+    margin: 0 1em 2em 1em;
+  }
+  .service-icon {
+    font-size: 3.2em;
+  }
+  h3 {
+    font-size: 1.34em;
   }
 }
 </style>

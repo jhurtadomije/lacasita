@@ -136,10 +136,25 @@ Así educamos nuestras capacidades perceptivas, sensitivas, representativas y si
     <section class="carousel-home container">
       <h2 class="seccion-titulo">Nuestras Instalaciones</h2>
       <div class="carousel-track">
-        <div class="carousel-slide" v-for="img in imagenes" :key="img.src">
+        <div
+          class="carousel-slide"
+          v-for="(img, idx) in imagenes"
+          :key="img.src"
+          :class="{ active: current === idx }"
+          v-show="isMobile ? current === idx : true"
+        >
           <img :src="img.src" :alt="img.alt" />
           <span class="carousel-caption">{{ img.titulo }}</span>
         </div>
+      </div>
+      <!-- Dots de navegación opcionales -->
+      <div class="carousel-dots" v-if="isMobile">
+        <span
+          v-for="(img, idx) in imagenes"
+          :key="idx"
+          :class="{ active: current === idx }"
+          @click="current = idx"
+        ></span>
       </div>
     </section>
   </AnimAppear>
@@ -202,9 +217,9 @@ Así educamos nuestras capacidades perceptivas, sensitivas, representativas y si
   <!-- CTA FINAL -->
 
   <AnimAppear animation="fade-up" :delay="1350">
-    <h2 class="seccion-titulo">¿Quieres conocernos mejor?</h2>
     <section class="cta-final container">
-      <router-link to="/contacto" class="btn-secondary">Contacta con nosotros</router-link>
+      <h2 class="seccion-titulo">¿Quieres conocernos mejor?</h2>
+      <router-link to="/contacto" class="btn-secondary"> Contacta con nosotros </router-link>
     </section>
   </AnimAppear>
 </template>
@@ -212,6 +227,8 @@ Así educamos nuestras capacidades perceptivas, sensitivas, representativas y si
 <script setup>
 import ServiceCard from '@/components/ServiceCard.vue'
 import AnimAppear from '@/components/AnimAppear.vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+
 const imagenes = [
   {
     src: new URL('@/assets/img/instalaciones/aulas/aula1.jpg', import.meta.url).href,
@@ -260,6 +277,24 @@ const imagenes = [
   },
 ]
 const videoHeroBg = new URL('@/assets/videos/hero-bg.mp4', import.meta.url).href
+
+const current = ref(0)
+const isMobile = ref(window.innerWidth < 700)
+
+function onResize() {
+  isMobile.value = window.innerWidth < 700
+}
+window.addEventListener('resize', onResize)
+onBeforeUnmount(() => window.removeEventListener('resize', onResize))
+
+let interval = null
+onMounted(() => {
+  interval = setInterval(() => {
+    // Solo autoplay si es móvil
+    if (isMobile.value) current.value = (current.value + 1) % imagenes.length
+  }, 2800)
+})
+onBeforeUnmount(() => clearInterval(interval))
 </script>
 
 <style scoped>
@@ -267,27 +302,28 @@ const videoHeroBg = new URL('@/assets/videos/hero-bg.mp4', import.meta.url).href
 h2,
 .seccion-titulo {
   text-align: center;
-  font-size: 2.5em;
-  margin: 2.2em 0 1.2em 0;
+  font-size: 2em;
+
   color: var(--casita-turquesa);
   font-family: 'Poppins', Arial, sans-serif;
   font-weight: 800;
   letter-spacing: 0.02em;
+  line-height: 1.2;
 }
 .mini-titulo {
   text-align: center;
-  font-size: 1.38em;
+  font-size: 1.1em;
   color: var(--casita-verde);
   margin-bottom: 0.5em;
   font-weight: 800;
 }
 
 .container {
-  width: 90%;
+  width: 94vw;
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem 0;
-  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 auto 0 auto;
 }
 
 /* --------- HERO principal --------- */
@@ -295,32 +331,33 @@ h2,
   position: relative;
   background: linear-gradient(120deg, var(--casita-rosa), var(--casita-turquesa));
   color: var(--casita-blanco);
-  min-height: 85vh;
+  min-height: 65vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 2em 1em 1.5em 1em;
+  padding: 2em 0.5em 1.2em 0.5em;
   clip-path: ellipse(100% 75% at 50% 0);
-  overflow: hidden;
 }
 
 .hero-video-bg {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: 100%;
   object-fit: cover;
   z-index: 0;
   filter: brightness(0.58) blur(1.5px);
+  pointer-events: none;
 }
 .hero-content {
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: 670px;
+  max-width: 44em;
+  margin-bottom: 1.5em;
   opacity: 0;
   transform: translateY(60px);
   animation: heroFadeUp 1.6s cubic-bezier(0.56, 0.01, 0.24, 1.01) forwards;
@@ -333,29 +370,29 @@ h2,
   }
 }
 .titulo-principal {
-  font-size: 2.3em;
+  font-size: 1.6em;
   margin-bottom: 0.12em;
   font-weight: 900;
 }
 .subtitulo-principal {
-  font-size: 1.27em;
+  font-size: 1.05em;
   margin: 0.9em 0 0.7em 0;
   font-weight: 700;
   color: var(--casita-blanco);
 }
 .hero-content p {
-  font-size: 1.09rem;
+  font-size: 1em;
   margin-bottom: 1.2em;
 }
 .btn-cta-pulse {
-  font-size: 1.05em;
+  font-size: 1em;
   margin-top: 0.7em;
-  padding: 0.85em 1.7em;
+  padding: 0.7em 1.3em;
   border-radius: 1.3em;
   background: linear-gradient(90deg, var(--casita-naranja), var(--casita-turquesa));
   color: #fff;
   font-weight: 700;
-  box-shadow: 0 2px 18px #00bfff2a;
+  box-shadow: 0 0.12em 1.1em #00bfff2a;
   border: none;
   cursor: pointer;
   text-decoration: none;
@@ -367,7 +404,7 @@ h2,
 }
 @keyframes cta-pulse {
   to {
-    box-shadow: 0 4px 28px #00bfff38;
+    box-shadow: 0 0.19em 2em #00bfff38;
     transform: scale(1.04);
   }
 }
@@ -380,67 +417,68 @@ h2,
 .bienvenida {
   display: block;
   font-family: 'Poppins', 'Comic Sans MS', cursive, sans-serif;
-  font-size: 3.5em;
+  font-size: 2.1em;
   font-weight: 900;
   letter-spacing: 0.08em;
-  margin: 0.07em 0 0.07em 0;
+  margin: 0.09em 0 0.09em 0;
   text-shadow:
-    0 4px 0 #fff,
-    0 8px 16px #00000018;
+    0 2px 4px #fff,
+    0 5px 12px #0001;
+
   user-select: none;
 }
 .bienvenida span {
   display: inline-block;
-  padding: 0 0.12em;
-  margin: 0 0.02em;
-  -webkit-text-stroke: 3px #fff;
-  text-stroke: 3px #fff;
+  padding: 0 0.07em;
+  margin: 0 0.01em;
+  -webkit-text-stroke: 1px #fff;
+  text-stroke: 1px #fff;
   background: transparent;
   --rot: -6deg;
   transition: filter 0.18s;
   text-shadow:
-    0 5px 0 #fff,
-    0 8px 16px #00000018;
+    0 2px 0 #fff,
+    0 4px 8px #00000010;
   animation: bounce 1.85s infinite;
   animation-timing-function: cubic-bezier(0.6, 0.2, 0.3, 1.6);
 }
 .bienvenida span:nth-child(1) {
-  color: #b6d330;
+  color: #b6d330 !important;
   --rot: -7deg;
   animation-delay: 0s;
 }
 .bienvenida span:nth-child(2) {
-  color: #fd2b7a;
+  color: #fd2b7a !important;
   --rot: 3deg;
   animation-delay: 0.18s;
 }
 .bienvenida span:nth-child(3) {
-  color: #ff9a21;
+  color: #ff9a21 !important;
   --rot: -2deg;
   animation-delay: 0.36s;
 }
 .bienvenida span:nth-child(4) {
-  color: #3fd6f5;
+  color: #3fd6f5 !important;
   --rot: 5deg;
   animation-delay: 0.12s;
 }
 .bienvenida span:nth-child(5) {
-  color: #fd2b7a;
+  color: #fd2b7a !important;
   --rot: -6deg;
   animation-delay: 0.21s;
 }
 .bienvenida span:nth-child(6) {
-  color: #ffe546;
+  color: #ffe546 !important;
   --rot: 4deg;
   animation-delay: 0.44s;
 }
 .bienvenida span:nth-child(7) {
-  color: #ff6b01;
+  color: #ff6b01 !important;
   --rot: -2deg;
   animation-delay: 0.09s;
 }
 .bienvenida span:nth-child(8) {
-  color: #43e889;
+  color: #43e889 !important;
   --rot: 7deg;
   animation-delay: 0.33s;
 }
@@ -474,9 +512,10 @@ h2,
     var(--casita-naranja-suave) 100%
   );
   border-radius: 2em;
-  box-shadow: 0 2px 18px #00bfff15;
+  box-shadow: 0 0.12em 1.1em #00bfff15;
   margin: 0 auto;
-  padding: 2em 1em;
+  padding: 0;
+  width: 100%;
   max-width: 1100px;
 }
 .about-grid {
@@ -484,7 +523,6 @@ h2,
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1.2em;
 }
 .about-text {
   max-width: 100%;
@@ -495,71 +533,108 @@ h2,
   font-size: 1.2em;
   margin-bottom: 1.5em;
   font-weight: 600;
-  text-align: center !important;
 }
 .about-img img {
-  width: 90vw;
-  max-width: 340px;
-  height: 340px;
-  border-radius: 19%;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  border-radius: 5%;
   object-fit: cover;
-  border: 5px solid var(--casita-blanco);
-  box-shadow: 0 2px 10px #00bfff16;
-  margin: 1.1em auto 1em auto;
+  border: 0.3em solid var(--casita-blanco);
+  box-shadow: 0 0.1em 0.7em #00bfff16;
+  margin: 0 auto 0 auto;
 }
 
-/* --------- SERVICIOS --------- */
-.services-home {
-  margin: 0 auto;
-  padding: 2.1em 0 1em 0;
-  max-width: 1100px;
-}
 .service-list {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2em;
-  justify-content: center;
-  align-items: stretch;
-  margin: 0 auto;
+  width: 100%;
+  margin: 0 auto 0 auto;
 }
 
 /* --------- GALERÍA DE INSTALACIONES --------- */
-.carousel-home {
-  padding: 2em 0 1em 0;
-  max-width: 1100px;
-  width: 100%;
-  margin: 0 auto;
-}
 .carousel-track {
   display: flex;
-  gap: 1.1em;
+  gap: 1em;
   overflow-x: auto;
-  padding-bottom: 0.5em;
   justify-content: center;
   margin: 0 auto;
 }
 .carousel-slide {
   background: var(--casita-turquesa-suave);
   border-radius: 1em;
-  box-shadow: 0 2px 10px #00bfff0f;
+  box-shadow: 0 0.1em 0.7em #00bfff0f;
   padding: 1em;
-  min-width: 220px;
-  max-width: 250px;
+  min-width: 66vw;
+  max-width: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: opacity 0.3s;
 }
 .carousel-slide img {
   width: 100%;
-  height: 120px;
+  height: 36vw;
+  min-height: 160px;
+  max-height: 280px;
   object-fit: cover;
   border-radius: 1em;
   margin-bottom: 1em;
 }
+.carousel-caption {
+  font-weight: 700;
+  color: var(--casita-turquesa);
+  font-size: 1.13em;
+  text-align: center;
+}
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.6em;
+  gap: 0.4em;
+}
+.carousel-dots span {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #d4f2f5;
+  opacity: 0.7;
+  cursor: pointer;
+  transition:
+    opacity 0.2s,
+    background 0.2s;
+  border: 1.5px solid #c4e5e9;
+}
+.carousel-dots span.active {
+  background: var(--casita-turquesa);
+  opacity: 1;
+  border: 1.5px solid var(--casita-turquesa);
+}
+@media (max-width: 700px) {
+  .carousel-track {
+    overflow-x: hidden;
+    gap: 0;
+  }
+  .carousel-slide {
+    display: none;
+    min-width: 95vw;
+    max-width: 95vw;
+    margin: 0 auto;
+    padding: 1em 0.4em 1.4em 0.4em;
+  }
+  .carousel-slide.active {
+    display: flex !important;
+  }
+  .carousel-slide img {
+    height: 54vw;
+    min-height: 150px;
+    max-height: 230px;
+  }
+}
 
 /* --------- JUNTA ANDALUCÍA --------- */
 .junta-section {
-  margin: 2.1em auto 1.4em auto;
+  margin: 1.5em auto 0.8em auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -567,106 +642,266 @@ h2,
   width: 100%;
   padding: 0;
 }
+
 .junta-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.1em;
-  padding: 1.2em 1em;
-  background: linear-gradient(120deg, #fff 65%, var(--casita-turquesa-suave));
-  border-radius: 1.2em;
-  box-shadow: 0 2px 14px #00bfff13;
-  max-width: 370px;
+  gap: 1em;
+  padding: 1.5em 1.1em 1.2em 1.1em;
+  background: #fff;
+  border-radius: 1.3em;
+  box-shadow: 0 4px 18px #00bfff18;
+  border-top: 5px solid #137752;
+  max-width: 350px;
   width: 100%;
   margin: 0 auto;
+  position: relative;
 }
+
 .junta-logo {
-  height: 46px;
+  height: 54px;
   width: auto;
   background: #fff;
   border-radius: 1em;
-  padding: 0.45em;
+  padding: 0.3em 1.1em;
+  object-fit: contain;
+  box-shadow: 0 2px 14px #13775224;
+  margin-bottom: 0.6em;
+}
+
+.junta-texto h3.mini-titulo {
+  color: #137752;
+  margin-bottom: 0.15em;
+  font-size: 1.1em;
+  font-weight: 700;
 }
 .junta-texto p {
   margin: 0;
-  font-size: 1em;
-  color: var(--casita-negro);
+  font-size: 1.05em;
+  color: #137752;
   font-weight: 600;
+  line-height: 1.45;
+  text-align: center;
+}
+.junta-texto span {
+  color: #137752;
+  font-weight: bold;
+}
+
+/* Botón opcional para enlace oficial */
+.btn-junta {
+  display: inline-block;
+  margin-top: 1.1em;
+  padding: 0.5em 1.3em;
+  background: #137752;
+  color: #fff;
+  border-radius: 2em;
+  font-size: 1em;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 2px 8px #13775218;
+  transition: background 0.16s;
+}
+.btn-junta:hover {
+  background: #0d5b3e;
+}
+
+/* Responsive: móvil */
+@media (max-width: 480px) {
+  .junta-card {
+    max-width: 98vw;
+    padding: 1em 0.4em;
+  }
+  .junta-logo {
+    height: 38px;
+    padding: 0.22em 0.7em;
+  }
 }
 
 /* --------- UBICACIÓN --------- */
 .ubicacion-section {
-  margin: 2.1em auto 1.6em auto;
+  margin: 2em auto 1.2em auto;
   max-width: 1100px;
+  padding: 0;
 }
+
 .ubicacion-content {
   display: flex;
   flex-direction: column;
-  gap: 1.3em;
-  justify-content: center;
+  gap: 1.4em;
   align-items: center;
   width: 100%;
 }
+
 .ubicacion-info {
-  min-width: 200px;
-  max-width: 300px;
-  font-size: 1.03em;
+  min-width: 160px;
+  max-width: 330px;
+  font-size: 1.04em;
   color: var(--casita-negro);
   display: flex;
   flex-direction: column;
   gap: 1em;
   text-align: center;
+  background: var(--casita-turquesa-suave, #e7fbfa);
+  border-radius: 1.1em;
+  padding: 1.1em 1em;
+  box-shadow: 0 2px 12px #00bfff17;
 }
+
+.ubicacion-info strong {
+  color: var(--casita-turquesa, #00bfff);
+  font-weight: 800;
+  font-size: 1.1em;
+}
+
+.btn-secondary {
+  display: inline-block;
+  margin: 0.7em auto 0 auto;
+  padding: 0.65em 1.5em;
+  font-weight: 700;
+  font-size: 1em;
+  background: linear-gradient(90deg, var(--casita-verde, #a4ce39), var(--casita-turquesa, #00bfff));
+  color: #fff;
+  border: none;
+  border-radius: 1.2em;
+  cursor: pointer;
+  box-shadow: 0 2px 12px #00bfff25;
+  text-decoration: none;
+  transition:
+    background 0.19s,
+    transform 0.17s;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+  background: linear-gradient(90deg, var(--casita-turquesa, #00bfff), var(--casita-verde, #a4ce39));
+  transform: scale(1.06);
+}
+
+/* Mapa responsivo y estilizado */
 .ubicacion-mapa {
-  min-width: 200px;
-  width: 100%;
-  max-width: 350px;
-  border-radius: 1em;
-  box-shadow: 0 2px 10px #00bfff10;
+  min-width: 160px;
+  width: 94vw;
+  max-width: 370px;
+  border-radius: 1.1em;
+  box-shadow: 0 0.1em 0.7em #00bfff16;
   overflow: hidden;
 }
+
 .ubicacion-mapa iframe {
   width: 100%;
-  height: 170px;
+  height: 36vw;
+  min-height: 140px;
+  max-height: 270px;
   border: 0;
-  border-radius: 1em;
+  border-radius: 1.1em;
   display: block;
+}
+
+@media (min-width: 820px) {
+  .ubicacion-content {
+    flex-direction: row;
+    justify-content: center;
+    gap: 2.5em;
+    align-items: flex-start;
+  }
+  .ubicacion-info {
+    text-align: right;
+    align-items: flex-end;
+  }
+  .ubicacion-mapa {
+    max-width: 410px;
+  }
 }
 
 /* --------- CTA FINAL --------- */
 .cta-final {
-  background: linear-gradient(120deg, var(--casita-verde), var(--casita-turquesa));
-  color: var(--casita-blanco);
-  padding: 2.5em 1em 2em 1em;
+  background: linear-gradient(
+    120deg,
+    var(--casita-verde, #a4ce39),
+    var(--casita-turquesa, #00bfff)
+  );
+  color: var(--casita-blanco, #fff);
+  padding: 2em 1em 2em 1em;
   text-align: center;
   border-radius: 1.2em;
-  margin: 2em auto 1.3em auto;
-  box-shadow: 0 2px 10px #a4ce3933;
-  max-width: 800px;
+  margin: 2.3em auto 1.4em auto;
+  box-shadow: 0 0.1em 0.7em #a4ce3933;
+  max-width: 95vw;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2em;
+}
+
+.cta-final .seccion-titulo {
+  color: #fff;
+  margin-bottom: 1.2em;
+}
+
+.btn-secondary {
+  display: inline-block;
+  margin: 0 auto;
+  padding: 0.78em 2.1em;
+  font-weight: 800;
+  font-size: 1.18em;
+  background: #fff;
+  color: var(--casita-verde, #a4ce39);
+  border: none;
+  border-radius: 1.8em;
+  box-shadow: 0 2px 12px #00bfff1c;
+  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  transition:
+    background 0.17s,
+    color 0.17s,
+    transform 0.16s,
+    box-shadow 0.18s;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+  background: var(--casita-verde, #a4ce39);
+  color: #fff;
+  box-shadow: 0 4px 16px #00bfff32;
+  transform: scale(1.05);
+}
+
+@media (max-width: 420px) {
+  .hero-content {
+    max-width: 98vh;
+  }
+  .bienvenida {
+    font-size: 1.6em;
+    line-height: 1.15;
+    word-break: break-word;
+    white-space: normal;
+  }
+  .titulo-principal {
+    font-size: 1.09em;
+  }
+  .subtitulo-principal {
+    font-size: 0.98em;
+    line-height: 1.18;
+    word-break: break-word;
+    white-space: normal;
+  }
 }
 
 /* --------- RESPONSIVE --------- */
 @media (min-width: 700px) {
-  .hero-content h1 {
-    font-size: 2.7rem;
+  h2,
+  .seccion-titulo {
+    font-size: 2.6em;
   }
-  .hero-content p {
-    font-size: 1.19rem;
+  .hero-content {
+    max-width: 42em;
   }
-  .btn-cta-pulse {
-    font-size: 1.15em;
-  }
-  .about-img img {
-    width: 320px;
-    height: 320px;
-  }
-  .about-home {
-    padding: 3em 2.2em;
-  }
-  .service-list {
-    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
-    gap: 3em;
+  .bienvenida {
+    font-size: 2.8em;
   }
   .carousel-slide {
     min-width: 260px;
@@ -675,23 +910,28 @@ h2,
   .carousel-slide img {
     height: 160px;
   }
-  .junta-card {
-    flex-direction: row;
-    gap: 1.5em;
-    max-width: 600px;
+  @media (min-width: 700px) {
+    .service-list {
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 6em;
+      justify-items: center;
+    }
   }
-  .junta-logo {
-    height: 100px;
-  }
-  .ubicacion-content {
-    flex-direction: row;
-    justify-content: center;
+
+  .about-img img {
+    width: 320px;
   }
   .ubicacion-mapa {
     max-width: 420px;
   }
-  .cta-final {
-    max-width: 800px;
+}
+@media (min-width: 1100px) {
+  .about-home,
+  .carousel-home,
+  .services-home,
+  .junta-section,
+  .ubicacion-section {
+    max-width: 1100px;
   }
 }
 </style>

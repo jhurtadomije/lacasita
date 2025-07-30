@@ -134,8 +134,28 @@ const instalaciones = {
 
 <style scoped>
 .instalaciones-section {
-  padding-top: 2em;
+  padding-top: 1.4em;
+  padding-bottom: 1.2em;
+  min-height: 60vh;
 }
+
+.instalaciones-section h1 {
+  text-align: center;
+  color: var(--casita-turquesa);
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 2.2em;
+  font-weight: 800;
+  margin-bottom: 0.2em;
+}
+
+.instalaciones-section > p {
+  text-align: center;
+  color: var(--casita-negro);
+  font-size: 1.13em;
+  font-weight: 500;
+  margin-bottom: 1.7em;
+}
+
 .tabs {
   display: flex;
   gap: 1em;
@@ -143,6 +163,7 @@ const instalaciones = {
   justify-content: center;
   flex-wrap: wrap;
 }
+
 .tab-btn {
   background: var(--casita-blanco);
   border: 2px solid var(--casita-naranja);
@@ -163,33 +184,69 @@ const instalaciones = {
   color: var(--casita-blanco);
   border-color: var(--casita-naranja);
 }
+
 .instalaciones-galeria {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2em;
-  margin-top: 2em;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 2.2em;
+  margin-top: 1.7em;
+  margin-bottom: 0.8em;
 }
+
 .instalacion-card {
-  background: var(--casita-naranja-suave);
-  border-radius: 1.5em;
-  box-shadow: 0 2px 16px #f7931e21;
-  padding: 1em 1em 1.5em 1em;
+  background: linear-gradient(120deg, #fff5e7 70%, #d6f4ff 100%);
+  border-radius: 1.4em;
+  box-shadow: 0 2px 22px #00bfff18;
+  padding: 1.3em 1em 1.2em 1em;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition:
+    box-shadow 0.16s,
+    transform 0.14s;
 }
+
+.instalacion-card:hover {
+  box-shadow: 0 8px 32px #00bfff33;
+  transform: translateY(-3px) scale(1.03);
+}
+
 .instalacion-card img {
-  border-radius: 1em;
+  border-radius: 1.1em;
   width: 100%;
-  height: 170px;
+  height: 190px;
   object-fit: cover;
-  margin-bottom: 1em;
+  margin-bottom: 1.1em;
+  box-shadow: 0 2px 12px #0001;
 }
+
 .instalacion-card h2 {
   color: var(--casita-naranja);
-  margin-bottom: 0.5em;
+  font-size: 1.18em;
+  font-weight: 800;
+  margin-bottom: 0.48em;
 }
+
 .instalacion-card p {
   color: var(--casita-negro);
-  font-size: 1em;
+  font-size: 1.08em;
   margin-bottom: 0;
+}
+
+@media (max-width: 600px) {
+  .instalaciones-section {
+    padding-top: 0.8em;
+  }
+  .instalaciones-galeria {
+    grid-template-columns: 1fr;
+    gap: 1.4em;
+  }
+  .instalacion-card img {
+    height: 150px;
+  }
+  .instalacion-card {
+    padding: 1em 0.7em 1em 0.7em;
+  }
 }
 </style>

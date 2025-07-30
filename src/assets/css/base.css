@@ -7,17 +7,33 @@ body {
   font-family: var(--font-main);
   background: var(--casita-turquesa-suave);
   color: var(--casita-negro);
+  width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+.seccion-titulo {
+  font-size: 2.3em;
+  text-align: center;
   font-family: var(--font-main);
   color: var(--casita-turquesa);
-  margin-top: 0;
+  margin: 0 0 1.4em 0;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+.mini-titulo {
+  font-size: 1.2em;
+  text-align: center;
+  font-family: var(--font-main);
+  color: var(--casita-verde);
+  margin: 0 0 0.8em 0;
+  font-weight: 700;
+  letter-spacing: 0.01em;
 }
 
 a {
@@ -28,22 +44,4 @@ a {
 
 a:hover {
   color: var(--casita-naranja);
-}
-
-button {
-  font-family: var(--font-main);
-  border: none;
-  cursor: pointer;
-}
-
-img {
-  max-width: 100%;
-  display: block;
-}
-
-.container {
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem 0;
 }

@@ -1,30 +1,33 @@
 <template>
-  <div class="junta-badge">
-    <img src="@/assets/img/junta-andalucia-logo.png" alt="Junta de Andalucía" />
-    <span>Centro adherido a la Junta de Andalucía</span>
-  </div>
-  <!-- HERO principal -->
-  <section class="hero">
-    <video class="hero-video-bg" :src="videoHeroBg" autoplay loop muted playsinline></video>
-    <div class="hero-content">
-      <h1>Educación Infantil Creativa en Maracena</h1>
-      <p>Cariño, aprendizaje y diversión desde 0 a 3 años</p>
-      <router-link to="/contacto" class="btn-primary btn-cta-pulse">Solicita visita</router-link>
-    </div>
-  </section>
+  <!-- HERO principal (full width, fuera de container) -->
+  <AnimAppear animation="fade-up" :delay="300">
+    <section class="hero">
+      <video class="hero-video-bg" :src="videoHeroBg" autoplay loop muted playsinline></video>
+      <div class="hero-content">
+        <h1 class="titulo-principal">Bienvenido a</h1>
+        <span class="bienvenida">
+          <span>L</span><span>A</span> <span>C</span><span>A</span><span>S</span><span>I</span
+          ><span>T</span><span>A</span>
+        </span>
+        <h2 class="subtitulo-principal">Su escuela de Educación Infantil Creativa en Maracena</h2>
+        <p>Cariño, aprendizaje y diversión desde 0 a 3 años</p>
+        <router-link to="/contacto" class="btn-primary btn-cta-pulse">Solicita visita</router-link>
+      </div>
+    </section>
+  </AnimAppear>
 
   <!-- SOBRE NOSOTROS -->
 
   <section class="about-home container">
+    <h2 class="seccion-titulo">Sobre nosotros</h2>
     <div class="about-grid">
-      <div class="about-img">
-        <img src="@/assets/img/sobrenosotros.jpg" alt="Equipo CEI La Casita" />
-      </div>
       <div class="about-text">
-        <h2>Sobre nosotros</h2>
         <p class="about-frase">
           <strong>“Creciendo juntos con alegría, cariño y creatividad.”</strong>
         </p>
+        <div class="about-img">
+          <img src="@/assets/img/sobrenosotros.jpg" alt="Equipo CEI La Casita" />
+        </div>
         <p>
           En CEI La Casita, acompañamos a cada niño en sus primeros pasos, potenciando su desarrollo
           a través del juego, la emoción y el respeto.<br />
@@ -36,106 +39,180 @@
   </section>
 
   <!-- SERVICIOS DESTACADOS -->
-  <section class="services-home container">
-    <h2>Nuestros servicios</h2>
-    <div class="service-list">
-      <div class="service-card">
-        <span class="service-icon">
-          <!-- Horario amplio -->
-          <svg width="42" height="42" viewBox="0 0 42 42">
-            <circle cx="21" cy="21" r="20" fill="#00bfff" />
-            <path
-              d="M21 11v10l7 5"
-              stroke="#fff"
-              stroke-width="2.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              fill="none"
+
+  <AnimAppear animation="zoom-in" :delay="550">
+    <section class="services-home container">
+      <h2 class="seccion-titulo">Nuestros servicios</h2>
+      <div class="service-list">
+        <!-- ... tus ServiceCard igual ... -->
+        <ServiceCard
+          title="Horario"
+          summary="El centro permanece abierto de 7:30 a 17:00 h."
+          :description="`
+Para la conciliación laboral habilitamos un horario de aula matinal de 7:30 a 9:00.
+
+El horario escolar es de 9:00 a 17:00 horas.`"
+        >
+          <template #icon>
+            <img
+              width="160"
+              height="160"
+              src="https://img.icons8.com/keek/100/clock.png"
+              alt="clock"
             />
-          </svg>
-        </span>
-        <h3>Horario amplio</h3>
-        <p>De 7:30 h a 17:00 h para facilitar la conciliación familiar.</p>
-      </div>
-      <div class="service-card">
-        <span class="service-icon">
-          <!-- Comedor casero -->
-          <svg width="42" height="42" viewBox="0 0 42 42">
-            <circle cx="21" cy="21" r="20" fill="#a4ce39" />
-            <rect x="14" y="22" width="14" height="7" rx="2.5" fill="#fff" />
-            <rect x="17" y="13" width="8" height="11" rx="4" fill="#fff" />
-          </svg>
-        </span>
-        <h3>Comedor casero</h3>
-        <p>Menús elaborados por nutricionista con productos frescos.</p>
-      </div>
-      <div class="service-card">
-        <span class="service-icon">
-          <!-- Inglés -->
-          <svg width="42" height="42" viewBox="0 0 42 42">
-            <circle cx="21" cy="21" r="20" fill="#f7931e" />
-            <path
-              d="M14 28v-7h4v7m10-11c0-4.42-3.58-8-8-8s-8 3.58-8 8c0 2.46 1.12 4.66 2.86 6.15l-1.29 2.85A1 1 0 0 0 12 28h18a1 1 0 0 0 .86-1.5l-1.29-2.85A7.96 7.96 0 0 0 31 17z"
-              stroke="#fff"
-              stroke-width="2"
-              fill="none"
+          </template>
+        </ServiceCard>
+        <ServiceCard
+          title="Comedor"
+          summary="Menú casero. Cocina propia."
+          :description="`
+Nuestros menús están elaborados por un nutricionista y seguimos un programa de comedor con el objetivo de conseguir la plena autonomía en hábitos relacionados con la comida (comer solo, estar bien sentado, masticar correctamente, etc.).
+
+Nuestra comida se elabora cada día en la cocina de la escuela, utilizando productos frescos y de calidad. ¡Comida CASERA Y DE CALIDAD!`"
+        >
+          <template #icon>
+            <img
+              width="160"
+              height="160"
+              src="https://img.icons8.com/keek/100/cutlery.png"
+              alt="cutlery"
             />
-          </svg>
-        </span>
-        <h3>Inmersión en inglés</h3>
-        <p>Introducción temprana al idioma en un entorno lúdico.</p>
-      </div>
-      <div class="service-card">
-        <span class="service-icon">
-          <!-- Música -->
-          <svg width="42" height="42" viewBox="0 0 42 42">
-            <circle cx="21" cy="21" r="20" fill="#ff4da6" />
-            <path
-              d="M26 16V10l-10 3v15.5a2.5 2.5 0 1 0 2 2.45V19l6-1v8.5a2.5 2.5 0 1 0 2 2.45V16z"
-              stroke="#fff"
-              stroke-width="2"
-              fill="none"
+          </template>
+        </ServiceCard>
+        <ServiceCard
+          title="Aprendizaje de inglés 0-3"
+          summary="Clases de iniciación al inglés y actividades de inmersión."
+          :description="`
+Contamos con clases de iniciación al inglés con apoyo de materiales exclusivos, además de personal titulado y capacitado para el desarrollo de las actividades de inmersión lingüística.`"
+        >
+          <template #icon>
+            <img
+              width="150"
+              height="150"
+              src="https://img.icons8.com/arcade/64/language-skill.png"
+              alt="language-skill"
             />
-          </svg>
-        </span>
-        <h3>Estimulación musical</h3>
-        <p>Desarrollo cognitivo y emocional a través de la música.</p>
+          </template>
+        </ServiceCard>
+        <ServiceCard
+          title="Estimulación musical 0-3"
+          summary="Mejora de memoria, desarrollo y expresión emocional."
+          :description="`
+Gracias a la estimulación musical mejoramos nuestra memoria, el desarrollo cognitivo, las habilidades lingüísticas y la expresión de nuestras emociones.`"
+        >
+          <template #icon>
+            <img
+              width="160"
+              height="160"
+              src="https://img.icons8.com/keek/100/musical-notes.png"
+              alt="musical-notes"
+            />
+          </template>
+        </ServiceCard>
+        <ServiceCard
+          title="Psicomotricidad vivenciada"
+          summary="Integramos desarrollo psíquico y motriz."
+          :description="`
+Mediante la cual enseñamos a los niños a integrar tanto elementos psíquicos como motrices.
+
+Así educamos nuestras capacidades perceptivas, sensitivas, representativas y simbólicas y damos significado a las cosas que percibimos y sentimos.`"
+        >
+          <template #icon>
+            <img
+              width="160"
+              height="160"
+              src="https://img.icons8.com/color/48/crawling-baby-skin-type-1.png"
+              alt="crawling-baby-skin-type-1"
+            />
+          </template>
+        </ServiceCard>
       </div>
-    </div>
-  </section>
+    </section>
+  </AnimAppear>
 
   <!-- GALERÍA DE INSTALACIONES -->
-  <section class="carousel-home container">
-    <h2>Instalaciones</h2>
-    <div class="carousel-track">
-      <div class="carousel-slide" v-for="img in imagenes" :key="img.src">
-        <img :src="img.src" :alt="img.alt" />
-        <span class="carousel-caption">{{ img.titulo }}</span>
+
+  <AnimAppear animation="fade-down" :delay="750">
+    <section class="carousel-home container">
+      <h2 class="seccion-titulo">Nuestras Instalaciones</h2>
+      <div class="carousel-track">
+        <div class="carousel-slide" v-for="img in imagenes" :key="img.src">
+          <img :src="img.src" :alt="img.alt" />
+          <span class="carousel-caption">{{ img.titulo }}</span>
+        </div>
+      </div>
+    </section>
+  </AnimAppear>
+
+  <!-- Sección Junta Andalucía -->
+
+  <section class="junta-section container">
+    <div class="junta-card">
+      <img
+        class="junta-logo"
+        src="@/assets/img/junta-andalucia-logo.png"
+        alt="Junta de Andalucía"
+      />
+      <div class="junta-texto">
+        <h3 class="mini-titulo">Centro adherido</h3>
+        <p>
+          <strong>
+            Centro de Educación Infantil adherido al Programa de ayudas a las familias de la
+            <span>Junta de Andalucía</span>.
+          </strong>
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- EQUIPO EDUCATIVO -->
-  <section class="team container">
-    <h2>Equipo educativo</h2>
-    <div class="team-list">
-      <div v-for="n in 3" :key="n" class="team-member">
-        <img :src="`https://randomuser.me/api/portraits/women/${10 + n}.jpg`" alt="educadora" />
-        <h3>Educadora {{ n }}</h3>
+  <!-- Sección Ubicación -->
+
+  <AnimAppear animation="zoom-in" :delay="1150">
+    <section class="ubicacion-section container">
+      <h2 class="seccion-titulo">¿Dónde estamos?</h2>
+      <div class="ubicacion-content">
+        <div class="ubicacion-info">
+          <p>
+            <strong>CEI La Casita</strong><br />
+            C. Rubén Darío, 6<br />
+            18200 Maracena, Granada, España
+          </p>
+          <a
+            href="https://www.google.com/maps?q=C.+Rub%C3%A9n+Dar%C3%ADo,+6,+18200+Maracena,+Granada,+Espa%C3%B1a"
+            class="btn-secondary"
+            target="_blank"
+            rel="noopener"
+          >
+            Abrir en Google Maps
+          </a>
+        </div>
+        <div class="ubicacion-mapa">
+          <iframe
+            src="https://www.google.com/maps?q=C.+Rub%C3%A9n+Dar%C3%ADo,+6,+18200+Maracena,+Granada,+Espa%C3%B1a&output=embed"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </AnimAppear>
 
   <!-- CTA FINAL -->
-  <section class="cta-final">
-    <h2>¿Quieres conocernos mejor?</h2>
-    <router-link to="/contacto" class="btn-secondary">Contacta con nosotros</router-link>
-  </section>
+
+  <AnimAppear animation="fade-up" :delay="1350">
+    <h2 class="seccion-titulo">¿Quieres conocernos mejor?</h2>
+    <section class="cta-final container">
+      <router-link to="/contacto" class="btn-secondary">Contacta con nosotros</router-link>
+    </section>
+  </AnimAppear>
 </template>
 
 <script setup>
+import ServiceCard from '@/components/ServiceCard.vue'
+import AnimAppear from '@/components/AnimAppear.vue'
 const imagenes = [
-  // Aulas
   {
     src: new URL('@/assets/img/instalaciones/aulas/aula1.jpg', import.meta.url).href,
     alt: 'Aula 1',
@@ -181,27 +258,54 @@ const imagenes = [
     alt: 'Fachada',
     titulo: 'Fachada',
   },
-  // Añade más imágenes si las tienes
 ]
 const videoHeroBg = new URL('@/assets/videos/hero-bg.mp4', import.meta.url).href
 </script>
 
 <style scoped>
-/* HERO con gran impacto visual */
+/* --------- GENERALES Y TITULOS --------- */
+h2,
+.seccion-titulo {
+  text-align: center;
+  font-size: 2.5em;
+  margin: 2.2em 0 1.2em 0;
+  color: var(--casita-turquesa);
+  font-family: 'Poppins', Arial, sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+.mini-titulo {
+  text-align: center;
+  font-size: 1.38em;
+  color: var(--casita-verde);
+  margin-bottom: 0.5em;
+  font-weight: 800;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 0;
+  box-sizing: border-box;
+}
+
+/* --------- HERO principal --------- */
 .hero {
   position: relative;
-  overflow: hidden;
-  min-height: 92vh;
-  background: linear-gradient(120deg, var(--casita-turquesa), var(--casita-naranja));
+  background: linear-gradient(120deg, var(--casita-rosa), var(--casita-turquesa));
   color: var(--casita-blanco);
-  text-align: center;
-  padding: 7em 1em 7em 1em;
-  clip-path: ellipse(100% 75% at 50% 0);
+  min-height: 85vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+  text-align: center;
+  padding: 2em 1em 1.5em 1em;
+  clip-path: ellipse(100% 75% at 50% 0);
+  overflow: hidden;
 }
+
 .hero-video-bg {
   position: absolute;
   top: 0;
@@ -210,297 +314,384 @@ const videoHeroBg = new URL('@/assets/videos/hero-bg.mp4', import.meta.url).href
   height: 100%;
   object-fit: cover;
   z-index: 0;
-  filter: brightness(0.5) blur(0.5px); /* oscurece para mejor legibilidad */
+  filter: brightness(0.58) blur(1.5px);
 }
-.hero-content h1 {
+.hero-content {
   position: relative;
   z-index: 2;
-  font-size: 2.7rem;
-  margin-bottom: 0.7em;
+  width: 100%;
+  max-width: 670px;
+  opacity: 0;
+  transform: translateY(60px);
+  animation: heroFadeUp 1.6s cubic-bezier(0.56, 0.01, 0.24, 1.01) forwards;
+  animation-delay: 0.5s;
+}
+@keyframes heroFadeUp {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.titulo-principal {
+  font-size: 2.3em;
+  margin-bottom: 0.12em;
+  font-weight: 900;
+}
+.subtitulo-principal {
+  font-size: 1.27em;
+  margin: 0.9em 0 0.7em 0;
+  font-weight: 700;
+  color: var(--casita-blanco);
 }
 .hero-content p {
-  font-size: 1.2rem;
-  z-index: 7;
+  font-size: 1.09rem;
   margin-bottom: 1.2em;
 }
-.junta-badge {
-  display: flex;
-  align-items: center;
-  gap: 0.8em;
-  margin: 1em 0 0.7em 0;
-  background: #6af308ff;
-  color: #b7428aff;
-  padding: 0.45em 1.2em;
-  border-radius: 1.3em;
-  font-weight: 700;
+.btn-cta-pulse {
   font-size: 1.05em;
-  box-shadow: 0 2px 12px #a4ce3933;
-  z-index: 4;
-}
-.junta-badge img {
-  height: 28px;
-  width: auto;
-  margin-right: 0.3em;
-  z-index: 3;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(120deg, #00bfff88, #f7931e66);
-  z-index: 1;
-  pointer-events: none;
-}
-.hero-cta {
   margin-top: 0.7em;
-  font-size: 1.17em;
-  padding: 0.9em 2.1em;
+  padding: 0.85em 1.7em;
   border-radius: 1.3em;
   background: linear-gradient(90deg, var(--casita-naranja), var(--casita-turquesa));
   color: #fff;
   font-weight: 700;
-  box-shadow: 0 2px 24px #00bfff33;
-  transition:
-    background 0.2s,
-    transform 0.18s;
+  box-shadow: 0 2px 18px #00bfff2a;
   border: none;
   cursor: pointer;
   text-decoration: none;
   letter-spacing: 0.03em;
+  animation: cta-pulse 1.8s infinite alternate;
+  transition:
+    background 0.2s,
+    transform 0.18s;
 }
-.hero-cta:hover,
-.hero-cta:focus {
+@keyframes cta-pulse {
+  to {
+    box-shadow: 0 4px 28px #00bfff38;
+    transform: scale(1.04);
+  }
+}
+.btn-cta-pulse:hover,
+.btn-cta-pulse:focus {
   background: linear-gradient(90deg, var(--casita-turquesa), var(--casita-naranja));
-  transform: translateY(-2px) scale(1.04);
-  color: #fff;
+  transform: scale(1.06);
 }
 
-/* About */
+.bienvenida {
+  display: block;
+  font-family: 'Poppins', 'Comic Sans MS', cursive, sans-serif;
+  font-size: 3.5em;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  margin: 0.07em 0 0.07em 0;
+  text-shadow:
+    0 4px 0 #fff,
+    0 8px 16px #00000018;
+  user-select: none;
+}
+.bienvenida span {
+  display: inline-block;
+  padding: 0 0.12em;
+  margin: 0 0.02em;
+  -webkit-text-stroke: 3px #fff;
+  text-stroke: 3px #fff;
+  background: transparent;
+  --rot: -6deg;
+  transition: filter 0.18s;
+  text-shadow:
+    0 5px 0 #fff,
+    0 8px 16px #00000018;
+  animation: bounce 1.85s infinite;
+  animation-timing-function: cubic-bezier(0.6, 0.2, 0.3, 1.6);
+}
+.bienvenida span:nth-child(1) {
+  color: #b6d330;
+  --rot: -7deg;
+  animation-delay: 0s;
+}
+.bienvenida span:nth-child(2) {
+  color: #fd2b7a;
+  --rot: 3deg;
+  animation-delay: 0.18s;
+}
+.bienvenida span:nth-child(3) {
+  color: #ff9a21;
+  --rot: -2deg;
+  animation-delay: 0.36s;
+}
+.bienvenida span:nth-child(4) {
+  color: #3fd6f5;
+  --rot: 5deg;
+  animation-delay: 0.12s;
+}
+.bienvenida span:nth-child(5) {
+  color: #fd2b7a;
+  --rot: -6deg;
+  animation-delay: 0.21s;
+}
+.bienvenida span:nth-child(6) {
+  color: #ffe546;
+  --rot: 4deg;
+  animation-delay: 0.44s;
+}
+.bienvenida span:nth-child(7) {
+  color: #ff6b01;
+  --rot: -2deg;
+  animation-delay: 0.09s;
+}
+.bienvenida span:nth-child(8) {
+  color: #43e889;
+  --rot: 7deg;
+  animation-delay: 0.33s;
+}
+.bienvenida span:hover {
+  filter: brightness(1.12) drop-shadow(0 2px 12px #0002);
+}
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0) scale(1) rotate(var(--rot));
+  }
+  25% {
+    transform: translateY(-20%) scale(1.09) rotate(var(--rot));
+  }
+  35% {
+    transform: translateY(-40%) scale(1.15) rotate(var(--rot));
+  }
+  55% {
+    transform: translateY(-18%) scale(1.05) rotate(var(--rot));
+  }
+  75% {
+    transform: translateY(0) scale(1) rotate(var(--rot));
+  }
+}
 
+/* --------- SOBRE NOSOTROS --------- */
 .about-home {
-  margin: 3.5em auto 2em auto;
   background: linear-gradient(
     120deg,
-    var(--casita-turquesa-suave) 65%,
-    var(--casita-naranja-suave)
+    var(--casita-turquesa-suave) 70%,
+    var(--casita-naranja-suave) 100%
   );
   border-radius: 2em;
-  box-shadow: 0 2px 28px #00bfff18;
-  padding: 2.5em 1.5em;
+  box-shadow: 0 2px 18px #00bfff15;
+  margin: 0 auto;
+  padding: 2em 1em;
   max-width: 1100px;
 }
 .about-grid {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 2.5em;
-}
-.about-img img {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 7px solid var(--casita-blanco);
-  box-shadow: 0 2px 16px #00bfff25;
-  background: var(--casita-blanco);
+  gap: 1.2em;
 }
 .about-text {
-  max-width: 450px;
+  max-width: 100%;
   text-align: center;
 }
 .about-frase {
   color: var(--casita-turquesa);
-  font-size: 1.18em;
-  margin-bottom: 1.1em;
+  font-size: 1.2em;
+  margin-bottom: 1.5em;
+  font-weight: 600;
+  text-align: center !important;
 }
-@media (min-width: 900px) {
-  .about-grid {
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-  }
-  .about-text {
-    text-align: left;
-  }
-}
-@media (max-width: 600px) {
-  .hero-content h1 {
-    font-size: 2rem;
-  }
-  .hero-content p {
-    font-size: 1.1rem;
-  }
-  .hero-cta {
-    font-size: 1em;
-    padding: 0.85em 1.5em;
-  }
+.about-img img {
+  width: 90vw;
+  max-width: 340px;
+  height: 340px;
+  border-radius: 19%;
+  object-fit: cover;
+  border: 5px solid var(--casita-blanco);
+  box-shadow: 0 2px 10px #00bfff16;
+  margin: 1.1em auto 1em auto;
 }
 
-/* Servicios con tarjetas coloridas */
+/* --------- SERVICIOS --------- */
 .services-home {
-  padding: 3.5em 0;
-}
-.services-home h2 {
-  color: var(--casita-turquesa);
-  text-align: center;
-  margin-bottom: 2em;
+  margin: 0 auto;
+  padding: 2.1em 0 1em 0;
+  max-width: 1100px;
 }
 .service-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 2.1em;
+  grid-template-columns: 1fr;
+  gap: 2em;
   justify-content: center;
   align-items: stretch;
-}
-.service-card {
-  background: linear-gradient(
-    135deg,
-    var(--casita-turquesa-suave) 70%,
-    var(--casita-naranja-suave) 100%
-  );
-  border-radius: 1.6em;
-  box-shadow: 0 4px 18px #00bfff21;
-  padding: 2.2em 1.2em 2em 1.2em;
-  text-align: center;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition:
-    transform 0.17s,
-    box-shadow 0.17s;
-  min-height: 270px;
-}
-.service-card:hover {
-  transform: translateY(-6px) scale(1.03);
-  box-shadow: 0 12px 32px #00bfff38;
-}
-.service-icon {
-  margin-bottom: 1.3em;
-  display: inline-block;
-}
-.service-card h3 {
-  color: var(--casita-turquesa);
-  font-size: 1.19em;
-  margin-bottom: 0.5em;
-  font-weight: 700;
-}
-.service-card p {
-  color: var(--casita-negro);
-  font-size: 1.03em;
-  margin-bottom: 0;
+  margin: 0 auto;
 }
 
-/* Galería de instalaciones */
-.gallery {
-  padding: 3em 0;
-}
-.gallery h2 {
-  color: var(--casita-naranja);
-}
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.8em;
-  margin-top: 2em;
-}
-.gallery-item img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-  border-radius: 1em;
-  box-shadow: 0 2px 12px #f7931e1a;
-}
-
-/* Equipo educativo con fotos circulares */
-.team {
-  padding: 3em 0 1.5em 0;
-  text-align: center;
-}
-.team h2 {
-  color: var(--casita-verde);
-}
-.team-list {
-  display: flex;
-  justify-content: center;
-  gap: 2em;
-  margin-top: 2em;
-  flex-wrap: wrap;
-}
-.team-member img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 3px solid var(--casita-verde);
-  object-fit: cover;
-  background: var(--casita-blanco);
-}
-.team-member h3 {
-  color: var(--casita-verde);
-  margin-top: 0.7em;
-  font-size: 1.12em;
-}
-
-/* CTA final con gradiente inverso */
-.cta-final {
-  background: linear-gradient(120deg, var(--casita-verde), var(--casita-turquesa));
-  color: var(--casita-blanco);
-  padding: 4em 1em 3em 1em;
-  text-align: center;
-  border-radius: 1.5em;
-  margin: 3em auto 2em auto;
-  box-shadow: 0 2px 20px #a4ce3933;
-}
-.cta-final h2 {
-  margin-bottom: 1em;
-}
+/* --------- GALERÍA DE INSTALACIONES --------- */
 .carousel-home {
-  padding: 3em 0 1.5em 0;
-}
-.carousel-home h2 {
-  color: var(--casita-naranja);
-  margin-bottom: 1.5em;
-  text-align: center;
+  padding: 2em 0 1em 0;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
 }
 .carousel-track {
   display: flex;
-  gap: 2em;
+  gap: 1.1em;
   overflow-x: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--casita-naranja) var(--casita-turquesa-suave);
-  padding-bottom: 1em;
+  padding-bottom: 0.5em;
   justify-content: center;
+  margin: 0 auto;
 }
 .carousel-slide {
   background: var(--casita-turquesa-suave);
-  border-radius: 1.5em;
-  box-shadow: 0 2px 16px #00bfff19;
+  border-radius: 1em;
+  box-shadow: 0 2px 10px #00bfff0f;
   padding: 1em;
-  text-align: center;
-  min-width: 260px;
-  max-width: 270px;
+  min-width: 220px;
+  max-width: 250px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: transform 0.19s;
 }
 .carousel-slide img {
   width: 100%;
-  height: 160px;
+  height: 120px;
   object-fit: cover;
   border-radius: 1em;
   margin-bottom: 1em;
-  box-shadow: 0 2px 12px #00bfff22;
 }
-.carousel-caption {
-  color: var(--casita-turquesa);
-  font-size: 1.07em;
+
+/* --------- JUNTA ANDALUCÍA --------- */
+.junta-section {
+  margin: 2.1em auto 1.4em auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1100px;
+  width: 100%;
+  padding: 0;
+}
+.junta-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1em;
+  padding: 1.2em 1em;
+  background: linear-gradient(120deg, #fff 65%, var(--casita-turquesa-suave));
+  border-radius: 1.2em;
+  box-shadow: 0 2px 14px #00bfff13;
+  max-width: 370px;
+  width: 100%;
+  margin: 0 auto;
+}
+.junta-logo {
+  height: 46px;
+  width: auto;
+  background: #fff;
+  border-radius: 1em;
+  padding: 0.45em;
+}
+.junta-texto p {
+  margin: 0;
+  font-size: 1em;
+  color: var(--casita-negro);
   font-weight: 600;
-  margin-top: 0.4em;
 }
-.carousel-slide:hover {
-  transform: scale(1.045);
-  box-shadow: 0 8px 32px #00bfff31;
+
+/* --------- UBICACIÓN --------- */
+.ubicacion-section {
+  margin: 2.1em auto 1.6em auto;
+  max-width: 1100px;
+}
+.ubicacion-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3em;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.ubicacion-info {
+  min-width: 200px;
+  max-width: 300px;
+  font-size: 1.03em;
+  color: var(--casita-negro);
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  text-align: center;
+}
+.ubicacion-mapa {
+  min-width: 200px;
+  width: 100%;
+  max-width: 350px;
+  border-radius: 1em;
+  box-shadow: 0 2px 10px #00bfff10;
+  overflow: hidden;
+}
+.ubicacion-mapa iframe {
+  width: 100%;
+  height: 170px;
+  border: 0;
+  border-radius: 1em;
+  display: block;
+}
+
+/* --------- CTA FINAL --------- */
+.cta-final {
+  background: linear-gradient(120deg, var(--casita-verde), var(--casita-turquesa));
+  color: var(--casita-blanco);
+  padding: 2.5em 1em 2em 1em;
+  text-align: center;
+  border-radius: 1.2em;
+  margin: 2em auto 1.3em auto;
+  box-shadow: 0 2px 10px #a4ce3933;
+  max-width: 800px;
+  width: 100%;
+}
+
+/* --------- RESPONSIVE --------- */
+@media (min-width: 700px) {
+  .hero-content h1 {
+    font-size: 2.7rem;
+  }
+  .hero-content p {
+    font-size: 1.19rem;
+  }
+  .btn-cta-pulse {
+    font-size: 1.15em;
+  }
+  .about-img img {
+    width: 320px;
+    height: 320px;
+  }
+  .about-home {
+    padding: 3em 2.2em;
+  }
+  .service-list {
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+    gap: 3em;
+  }
+  .carousel-slide {
+    min-width: 260px;
+    max-width: 270px;
+  }
+  .carousel-slide img {
+    height: 160px;
+  }
+  .junta-card {
+    flex-direction: row;
+    gap: 1.5em;
+    max-width: 600px;
+  }
+  .junta-logo {
+    height: 100px;
+  }
+  .ubicacion-content {
+    flex-direction: row;
+    justify-content: center;
+  }
+  .ubicacion-mapa {
+    max-width: 420px;
+  }
+  .cta-final {
+    max-width: 800px;
+  }
 }
 </style>

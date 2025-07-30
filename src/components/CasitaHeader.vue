@@ -124,7 +124,7 @@ onUnmounted(() => {
   height: 4px;
   background: var(--casita-blanco);
   border-radius: 2.3px;
-  transition: all 0.8s cubic-bezier(0.83, 0.01, 0.35, 1.31);
+  transition: all 0.3s cubic-bezier(0.83, 0.01, 0.35, 1.31);
   display: block;
   position: relative;
 }

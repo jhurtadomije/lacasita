@@ -105,9 +105,10 @@
   gap: 1em;
   margin-top: 1.5em;
 }
-.directora-foto {
-  width: 70px;
-  height: 70px;
+.foto-directora {
+  /* <-- CAMBIO aquí el nombre correcto */
+  width: 150px;
+  height: 150px;
   object-fit: cover;
   border-radius: 50%;
   border: 3px solid var(--casita-verde);
@@ -124,7 +125,7 @@
     align-items: flex-start;
     gap: 0.5em;
   }
-  .directora-foto {
+  .foto-directora {
     margin-bottom: 0.4em;
   }
 }

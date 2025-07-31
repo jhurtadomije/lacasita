@@ -137,24 +137,17 @@ Así educamos nuestras capacidades perceptivas, sensitivas, representativas y si
     <section class="carousel-home container">
       <h2 class="seccion-titulo">Nuestras Instalaciones</h2>
       <div class="carousel-track">
-        <div
-          class="carousel-slide"
-          v-for="(img, idx) in imagenes"
-          :key="img.src"
-          :class="{ active: current === idx }"
-          v-show="isMobile ? current === idx : true"
-        >
+        <div class="carousel-slide" v-for="img in visibleImages" :key="img.src">
           <img :src="img.src" :alt="img.alt" />
           <span class="carousel-caption">{{ img.titulo }}</span>
         </div>
       </div>
-      <!-- Dots de navegación opcionales -->
-      <div class="carousel-dots" v-if="isMobile">
+      <div class="carousel-dots">
         <span
-          v-for="(img, idx) in imagenes"
-          :key="idx"
-          :class="{ active: current === idx }"
-          @click="current = idx"
+          v-for="n in totalPages"
+          :key="n"
+          :class="{ active: current === n - 1 }"
+          @click="goToSlide(n - 1)"
         ></span>
       </div>
     </section>
@@ -228,7 +221,7 @@ Así educamos nuestras capacidades perceptivas, sensitivas, representativas y si
 <script setup>
 import ServiceCard from '@/components/ServiceCard.vue'
 import AnimAppear from '@/components/AnimAppear.vue'
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
 const imagenes = [
   {
@@ -280,22 +273,48 @@ const imagenes = [
 const videoHeroBg = new URL('@/assets/videos/hero-bg.mp4', import.meta.url).href
 
 const current = ref(0)
+const slidesToShow = ref(window.innerWidth < 700 ? 1 : 3)
 const isMobile = ref(window.innerWidth < 700)
 
-function onResize() {
-  isMobile.value = window.innerWidth < 700
+// -- Actualiza slidesToShow según tamaño pantalla
+function updateResponsive() {
+  if (window.innerWidth < 700) {
+    slidesToShow.value = 1
+    isMobile.value = true
+  } else {
+    slidesToShow.value = 3
+    isMobile.value = false
+  }
 }
-window.addEventListener('resize', onResize)
-onBeforeUnmount(() => window.removeEventListener('resize', onResize))
 
-let interval = null
 onMounted(() => {
+  updateResponsive()
+  window.addEventListener('resize', updateResponsive)
+  // Autoplay en todos los tamaños (opcional: solo móvil si quieres)
   interval = setInterval(() => {
-    // Solo autoplay si es móvil
-    if (isMobile.value) current.value = (current.value + 1) % imagenes.length
+    current.value = (current.value + 1) % totalPages.value
   }, 2800)
 })
-onBeforeUnmount(() => clearInterval(interval))
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', updateResponsive)
+  clearInterval(interval)
+})
+
+// -- Cálculo imágenes visibles (paginado)
+const visibleImages = computed(() => {
+  const start = current.value * slidesToShow.value
+  return imagenes.slice(start, start + slidesToShow.value)
+})
+
+// -- Cuántas páginas tiene el carrusel
+const totalPages = computed(() => Math.ceil(imagenes.length / slidesToShow.value))
+
+// -- Cambiar de página
+function goToSlide(idx) {
+  current.value = idx
+}
+
+let interval = null
 </script>
 
 <style scoped>
@@ -304,7 +323,6 @@ h2,
 .seccion-titulo {
   text-align: center;
   font-size: 2em;
-
   color: var(--casita-turquesa);
   font-family: 'Poppins', Arial, sans-serif;
   font-weight: 800;
@@ -318,7 +336,6 @@ h2,
   margin-bottom: 0.5em;
   font-weight: 800;
 }
-
 .container {
   width: 94vw;
   max-width: 1200px;
@@ -339,10 +356,8 @@ h2,
   justify-content: center;
   text-align: center;
   padding: 1.7em 0 3.5rem 0;
-
   clip-path: ellipse(100% 80% at 50% 0);
 }
-
 .hero-video-bg {
   position: absolute;
   top: 0;
@@ -560,42 +575,47 @@ h2,
 }
 
 /* --------- GALERÍA DE INSTALACIONES --------- */
+
+/* === Desktop by defecto === */
 .carousel-home {
   margin-top: -4.1em;
   justify-content: center;
 }
 .carousel-track {
   display: flex;
-  gap: 1em;
-  overflow-x: auto;
+  gap: 2em;
   justify-content: center;
+  align-items: stretch;
   margin: 0 auto;
+  width: 100%;
+  max-width: 1150px;
+  overflow: hidden;
 }
 .carousel-slide {
-  background: var(--casita-turquesa-suave);
-  border-radius: 1em;
-  box-shadow: 0 0.1em 0.7em #00bfff0f;
-  padding: 1em;
-  min-width: 66vw;
-  max-width: 300px;
+  flex: 0 0 calc(33.33% - 1.33em);
+  max-width: 320px;
+  min-width: 220px;
+  opacity: 1 !important;
+  transform: none !important;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: opacity 0.3s;
+  background: var(--casita-turquesa-suave);
+  transition: box-shadow 0.2s;
 }
 .carousel-slide img {
   width: 100%;
-  height: 36vw;
-  min-height: 160px;
-  max-height: 280px;
+  max-width: 260px;
+  height: 180px;
   object-fit: cover;
   border-radius: 1em;
-  margin-bottom: 1em;
+  margin-bottom: 0.7em;
 }
 .carousel-caption {
+  margin-top: 0.5em;
   font-weight: 700;
   color: var(--casita-turquesa);
-  font-size: 1.13em;
+  font-size: 1.09em;
   text-align: center;
 }
 .carousel-dots {
@@ -621,10 +641,13 @@ h2,
   opacity: 1;
   border: 1.5px solid var(--casita-turquesa);
 }
+
+/* === MÓVIL: SOLO una imagen visible === */
 @media (max-width: 700px) {
   .carousel-track {
     overflow-x: hidden;
     gap: 0;
+    display: flex;
   }
   .carousel-slide {
     display: none;
@@ -642,7 +665,6 @@ h2,
     max-height: 230px;
   }
 }
-
 /* --------- JUNTA ANDALUCÍA --------- */
 .junta-section {
   margin: 1.5em auto 0.8em auto;
@@ -811,7 +833,7 @@ h2,
   display: block;
 }
 
-@media (min-width: 400px) {
+@media (min-width: 380px) {
   .ubicacion-content {
     flex-direction: row;
     justify-content: center;
@@ -904,7 +926,7 @@ h2,
 }
 
 /* --------- RESPONSIVE --------- */
-@media (min-width: 700px) {
+@media (max-width: 700px) {
   h2,
   .seccion-titulo {
     font-size: 2.6em;
@@ -913,16 +935,59 @@ h2,
     max-width: 42em;
   }
   .bienvenida {
-    font-size: 2.8em;
+    font-size: 2.2em;
+  }
+  .carousel-track {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2em;
+    justify-items: center;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1150px; /* máximo ancho */
   }
   .carousel-slide {
-    min-width: 260px;
-    max-width: 500px;
+    min-width: 220px;
+    max-width: 280px;
+    border-radius: 1em;
+    box-shadow: 0 0.1em 0.7em #00bfff0f;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--casita-turquesa-suave);
+    transition: box-shadow 0.2s;
+    opacity: 0;
+    transform: translateY(35px) scale(0.96);
+    animation: gridFadeIn 0.7s cubic-bezier(0.72, 0, 0.35, 1.18) forwards;
+    animation-delay: calc(0.13s * var(--i, 1));
   }
+  @keyframes gridFadeIn {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
   .carousel-slide img {
-    height: 35vh;
-    width: 35vh;
-    margin: auto;
+    width: 100%;
+    max-width: 260px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 1em;
+    margin-bottom: 0.7em;
+  }
+  .carousel-caption {
+    margin-top: 0.5em;
+    font-weight: 700;
+    color: var(--casita-turquesa);
+    font-size: 1.09em;
+    text-align: center;
+  }
+  .carousel-slide:hover {
+    box-shadow: 0 8px 36px #00bfff1f;
+    transform: translateY(-6px) scale(1.025);
+    z-index: 2;
   }
   @media (min-width: 700px) {
     .service-list {

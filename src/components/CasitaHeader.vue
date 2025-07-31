@@ -131,7 +131,7 @@ onUnmounted(() => {
   align-items: center;
 }
 .logo img {
-  height: 3.7rem;
+  height: 4.2em;
   max-width: 44vw;
   width: auto;
   border-radius: 0.7em;
@@ -221,7 +221,7 @@ nav a.active,
 nav a:hover {
   background: var(--casita-turquesa-suave, #d2f3ff);
   color: var(--casita-verde, #8dc63f);
-  text-decoration: underline 0.13em;
+  text-decoration: none;
 }
 .nav-backdrop {
   display: block;
@@ -232,53 +232,64 @@ nav a:hover {
   backdrop-filter: blur(2px);
 }
 
-/* DESKTOP desde 900px (56em) */
-@media (min-width: 56em) {
+/* DESKTOP desde 800px (56em) */
+@media (min-width: 900px) {
   .header-flex {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Logo a la izq */
     min-height: 6.5rem;
     padding: 1.3em 2.5em;
-    max-width: 66rem;
-    justify-content: space-between;
+    margin: 0;
+    max-width: 100%;
+    width: 90vw;
   }
   .logo {
-    position: static;
-    left: unset;
-    transform: none;
-    margin: 0;
+    position: static !important;
+    left: unset !important;
+    transform: none !important;
+    margin-right: 5rem; /* separa logo del menú */
     justify-content: flex-start;
+    align-items: center;
+    display: flex;
+    flex-shrink: 0;
   }
   .logo img {
-    height: 5.4rem;
-    max-width: 16vw;
+    height: 8rem;
+    max-width: 14vw;
+    display: block;
   }
   .hamburger {
     display: none;
   }
   nav,
   nav.open {
+    flex: 1;
+    margin-left: 0; /* menú a la derecha */
     position: static;
     background: none;
     box-shadow: none;
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
+    gap: 4em;
     max-height: none !important;
     opacity: 1 !important;
     pointer-events: auto;
-    gap: 2em;
   }
   nav a {
-    color: var(--casita-blanco, #fff);
-    background: none;
-    font-size: 1.17rem;
-    padding: 0.38em 1.1em;
-    margin: 0 0.06em;
+    color: #fff !important; /* Blanco siempre */
+    font-size: 1.23rem !important; /* Más grande, ajusta a tu gusto */
+    font-weight: 700;
+    letter-spacing: 0.015em;
+    text-shadow: 0 2px 7px #0001;
+    transition: color 0.18s;
   }
   nav a.active,
   nav a:hover {
     background: var(--casita-rosa-suave, #ffe1c2);
-    color: var(--casita-turquesa, #00bfff);
-    text-decoration: underline 0.14em;
+    color: var(--casita-turquesa, #00bfff) !important;
+    text-decoration: none;
   }
   .nav-backdrop {
     display: none;

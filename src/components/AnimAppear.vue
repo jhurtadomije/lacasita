@@ -45,8 +45,8 @@ onUnmounted(() => {
   opacity: 0;
   transform: translateY(60px);
   transition:
-    opacity 1.1s cubic-bezier(0.53, 0, 0.19, 1) var(--delay, 0ms),
-    transform 1s cubic-bezier(0.45, 0.01, 0.17, 1.09) var(--delay, 0ms);
+    opacity 1.7s cubic-bezier(0.53, 0, 0.19, 1) var(--delay, 0ms),
+    transform 1.2s cubic-bezier(0.45, 0.01, 0.17, 1.09) var(--delay, 0ms);
   will-change: opacity, transform;
 }
 .anim-appear.visible {

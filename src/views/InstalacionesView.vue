@@ -21,11 +21,26 @@
     <!-- Galería según la categoría -->
     <div class="instalaciones-galeria">
       <div class="instalacion-card" v-for="item in instalaciones[categoria]" :key="item.img">
-        <img :src="item.img" :alt="item.nombre" />
-        <h2>{{ item.nombre }}</h2>
+        <img
+          :src="item.img"
+          :alt="item.nombre"
+          class="zoomable-img"
+          @click="abrirModal(item.img, item.nombre)"
+          style="cursor: pointer"
+        />
         <p>{{ item.desc }}</p>
       </div>
     </div>
+
+    <!-- MODAL -->
+    <transition name="modal-fade">
+      <div v-if="modalAbierto" class="modal-overlay" @click.self="cerrarModal">
+        <div class="modal-img-container">
+          <button class="modal-close" @click="cerrarModal" aria-label="Cerrar">&times;</button>
+          <img :src="modalImg" :alt="modalAlt" />
+        </div>
+      </div>
+    </transition>
   </section>
 </template>
 
@@ -126,24 +141,38 @@ const instalaciones = {
     {
       nombre: 'Fachada',
       img: new URL('@/assets/img/instalaciones/fachada/fachada.jpg', import.meta.url).href,
-      desc: 'Nuestro centro en Maracena, moderno y accesible.',
+      desc: 'Nuestro centro en Maracena.',
     },
   ],
+}
+// Modal
+const modalAbierto = ref(false)
+const modalImg = ref('')
+const modalAlt = ref('')
+
+function abrirModal(img, alt) {
+  modalImg.value = img
+  modalAlt.value = alt
+  modalAbierto.value = true
+}
+function cerrarModal() {
+  modalAbierto.value = false
 }
 </script>
 
 <style scoped>
 .instalaciones-section {
-  padding-top: 1.4em;
-  padding-bottom: 1.2em;
+  padding-top: 1.2em;
+  padding-bottom: 1.1em;
   min-height: 60vh;
 }
 
+/* Títulos */
 .instalaciones-section h1 {
   text-align: center;
   color: var(--casita-turquesa);
   font-family: 'Poppins', Arial, sans-serif;
-  font-size: 2.2em;
+  font-size: 2em;
   font-weight: 800;
   margin-bottom: 0.2em;
 }
@@ -151,15 +180,16 @@ const instalaciones = {
 .instalaciones-section > p {
   text-align: center;
   color: var(--casita-negro);
-  font-size: 1.13em;
+  font-size: 1em;
   font-weight: 500;
-  margin-bottom: 1.7em;
+  margin-bottom: 1.5em;
 }
 
+/* Tabs */
 .tabs {
   display: flex;
-  gap: 1em;
-  margin: 2em 0 1.5em 0;
+  gap: 0.7em;
+  margin: 1.6em 0 1.2em 0;
   justify-content: center;
   flex-wrap: wrap;
 }
@@ -170,8 +200,8 @@ const instalaciones = {
   color: var(--casita-naranja);
   border-radius: 2em;
   font-weight: 600;
-  padding: 0.6em 1.7em;
-  font-size: 1.05em;
+  padding: 0.5em 1.3em;
+  font-size: 1em;
   cursor: pointer;
   transition:
     background 0.2s,
@@ -185,68 +215,148 @@ const instalaciones = {
   border-color: var(--casita-naranja);
 }
 
+/* Galería: Mobile primero (una columna) */
 .instalaciones-galeria {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-  gap: 2.2em;
-  margin-top: 1.7em;
-  margin-bottom: 0.8em;
+  grid-template-columns: 1fr;
+  gap: 1.3em;
+  margin-top: 1.4em;
+  margin-bottom: 0.7em;
 }
 
 .instalacion-card {
   background: linear-gradient(120deg, #fff5e7 70%, #d6f4ff 100%);
-  border-radius: 1.4em;
-  box-shadow: 0 2px 22px #00bfff18;
-  padding: 1.3em 1em 1.2em 1em;
+  border-radius: 1.1em;
+  box-shadow: 0 2px 16px #00bfff10;
+  padding: 1em 0.7em 1em 0.7em;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   transition:
-    box-shadow 0.16s,
+    box-shadow 0.14s,
     transform 0.14s;
 }
 
 .instalacion-card:hover {
-  box-shadow: 0 8px 32px #00bfff33;
-  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 6px 26px #00bfff28;
+  transform: translateY(-2px) scale(1.025);
 }
 
+/* Imagenes ajustadas */
 .instalacion-card img {
-  border-radius: 1.1em;
-  width: 100%;
-  height: 190px;
-  object-fit: cover;
-  margin-bottom: 1.1em;
-  box-shadow: 0 2px 12px #0001;
+  display: block;
+  border-radius: 1em;
+  max-width: 100%;
+  width: auto;
+  max-height: 9em;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 0.9em;
+  box-shadow: 0 0.13em 0.75em #0001;
+  background: #fff;
+  margin-left: auto;
+  margin-right: auto;
 }
 
+/* Título y texto de la card */
 .instalacion-card h2 {
   color: var(--casita-naranja);
-  font-size: 1.18em;
+  font-size: 1.08em;
   font-weight: 800;
-  margin-bottom: 0.48em;
+  margin-bottom: 0.38em;
 }
 
 .instalacion-card p {
   color: var(--casita-negro);
-  font-size: 1.08em;
+  font-size: 1em;
   margin-bottom: 0;
 }
+.zoomable-img {
+  transition:
+    box-shadow 0.18s,
+    transform 0.18s;
+}
+.zoomable-img:hover {
+  box-shadow: 0 6px 22px #00bfff24;
+  transform: scale(1.04);
+}
 
-@media (max-width: 600px) {
-  .instalaciones-section {
-    padding-top: 0.8em;
-  }
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  background: rgba(18, 36, 44, 0.78);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-img-container {
+  position: relative;
+  background: #fff;
+  border-radius: 1.2em;
+  box-shadow: 0 10px 44px #0004;
+  max-width: 94vw;
+  max-height: 84vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7em;
+}
+.modal-img-container img {
+  max-width: 90vw;
+  max-height: 70vh;
+  width: auto;
+  height: auto;
+  border-radius: 0.7em;
+  background: #fafafa;
+}
+.modal-close {
+  position: absolute;
+  top: 0.29em;
+  right: 0.7em;
+  background: none;
+  border: none;
+  color: #00bfff;
+  font-size: 2.2em;
+  font-weight: 900;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2;
+}
+.modal-close:hover {
+  color: #ff2b7a;
+}
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 0.26s cubic-bezier(0.7, 0.08, 0.33, 1);
+}
+.modal-fade-enter-from,
+.modal-fade-leave-to {
+  opacity: 0;
+}
+
+/* Escritorio: varias columnas */
+@media (min-width: 600px) {
   .instalaciones-galeria {
-    grid-template-columns: 1fr;
-    gap: 1.4em;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2em;
+  }
+  .instalaciones-section h1 {
+    font-size: 2.3em;
   }
   .instalacion-card img {
-    height: 150px;
+    max-height: 11em;
   }
-  .instalacion-card {
-    padding: 1em 0.7em 1em 0.7em;
+  .modal-img-container {
+    padding: 0.13em;
+    max-width: 99vw;
+    max-height: 98vh;
+  }
+  .modal-img-container img {
+    max-width: 98vw;
+    max-height: 76vh;
   }
 }
 </style>

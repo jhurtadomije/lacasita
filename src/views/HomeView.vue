@@ -17,7 +17,7 @@
   </AnimAppear>
 
   <!-- SOBRE NOSOTROS -->
-  <AnimAppear animation="fade-up" :delay="500">
+  <AnimAppear animation="fade-up" :delay="900">
     <section class="about-home container">
       <h2 class="seccion-titulo">Sobre nosotros</h2>
       <div class="about-grid">
@@ -41,7 +41,7 @@
 
   <!-- SERVICIOS DESTACADOS -->
 
-  <AnimAppear animation="zoom-in" :delay="550">
+  <AnimAppear animation="zoom-in" :delay="800">
     <section class="services-home container">
       <h2 class="seccion-titulo">Nuestros servicios</h2>
       <div class="service-list">
@@ -133,7 +133,7 @@ Así educamos nuestras capacidades perceptivas, sensitivas, representativas y si
 
   <!-- GALERÍA DE INSTALACIONES -->
 
-  <AnimAppear animation="fade-down" :delay="750">
+  <AnimAppear animation="fade-down" :delay="300">
     <section class="carousel-home container">
       <h2 class="seccion-titulo">Nuestras Instalaciones</h2>
       <div class="carousel-track">
@@ -176,7 +176,7 @@ Así educamos nuestras capacidades perceptivas, sensitivas, representativas y si
 
   <!-- Sección Ubicación -->
 
-  <AnimAppear animation="zoom-in" :delay="1150">
+  <AnimAppear animation="zoom-in" :delay="450">
     <section class="ubicacion-section container">
       <h2 class="seccion-titulo">¿Dónde estamos?</h2>
       <div class="ubicacion-mapa">
@@ -210,7 +210,7 @@ Así educamos nuestras capacidades perceptivas, sensitivas, representativas y si
 
   <!-- CTA FINAL -->
 
-  <AnimAppear animation="fade-up" :delay="1350">
+  <AnimAppear animation="fade-up" :delay="300">
     <section class="cta-final container">
       <h2 class="seccion-titulo">¿Quieres conocernos mejor?</h2>
       <router-link to="/contacto" class="btn-secondary"> Contacta con nosotros </router-link>
@@ -991,8 +991,8 @@ h2,
   }
   @media (min-width: 700px) {
     .service-list {
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 6em;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3em;
       justify-items: center;
     }
   }
@@ -1015,6 +1015,10 @@ h2,
     max-width: 1200px;
     margin-bottom: 1em;
     margin-top: 1.2em;
+  }
+  .service-list {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 3em;
   }
 }
 </style>

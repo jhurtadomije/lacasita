@@ -194,8 +194,8 @@ nav {
   opacity: 0;
   pointer-events: none;
   transition:
-    max-height 0.35s cubic-bezier(0.77, 0, 0.18, 1),
-    opacity 0.18s;
+    max-height 0.8s cubic-bezier(0.77, 0, 0.18, 1),
+    opacity 0.3s;
   z-index: 1100;
 }
 nav.open {

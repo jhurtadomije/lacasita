@@ -8,15 +8,15 @@
   >
     <div class="service-flip-card-inner">
       <div class="service-flip-card-front">
+        <h2>{{ title }}</h2>
         <span class="service-icon">
           <slot name="icon"></slot>
         </span>
-        <h3>{{ title }}</h3>
         <p>{{ summary }}</p>
         <span class="ver-mas">Ver más</span>
       </div>
       <div class="service-flip-card-back">
-        <h3>{{ title }}</h3>
+        <h2>{{ title }}</h2>
         <p>{{ description }}</p>
         <span class="back-tip">Volver</span>
       </div>
@@ -86,6 +86,7 @@ const flipped = ref(false)
   z-index: 2;
   background: linear-gradient(
     120deg,
+    var(--casita-rosa-suave, #ffd2ea) 20%,
     var(--casita-turquesa-suave, #d2f3ff) 70%,
     var(--casita-naranja-suave, #ffe1c2) 100%
   );
@@ -99,22 +100,23 @@ const flipped = ref(false)
 /* --- Icono y títulos --- */
 .service-icon {
   font-size: 3.2em;
-  margin-bottom: 1em;
+  margin-bottom: 0.6em;
   margin-top: 0.5em;
   display: block;
 }
-h3 {
+h2 {
   margin-top: 0.1em;
   color: var(--casita-turquesa, #00bfff);
   margin-bottom: 0.6em;
-  font-size: 1.28em;
+  font-size: 1.8em;
   text-align: center;
 }
 .service-flip-card-front p,
 .service-flip-card-back p {
+  color: var(--casita-rosa);
   font-size: 1.12em;
   text-align: center;
-  margin-bottom: 1.1em;
+  margin-bottom: 0.6em;
   margin-top: 0;
   flex-grow: 1;
   flex-shrink: 1;

@@ -17,26 +17,27 @@
   </AnimAppear>
 
   <!-- SOBRE NOSOTROS -->
-
-  <section class="about-home container">
-    <h2 class="seccion-titulo">Sobre nosotros</h2>
-    <div class="about-grid">
-      <div class="about-text">
-        <p class="about-frase">
-          <strong>“Creciendo juntos con alegría, cariño y creatividad.”</strong>
-        </p>
-        <div class="about-img">
-          <img src="@/assets/img/sobrenosotros.jpg" alt="Equipo CEI La Casita" />
+  <AnimAppear animation="fade-up" :delay="500">
+    <section class="about-home container">
+      <h2 class="seccion-titulo">Sobre nosotros</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p class="about-frase">
+            <strong>“Creciendo juntos con alegría, cariño y creatividad.”</strong>
+          </p>
+          <div class="about-img">
+            <img src="@/assets/img/sobrenosotros.jpg" alt="Equipo CEI La Casita" />
+          </div>
+          <p>
+            En CEI La Casita, acompañamos a cada niño en sus primeros pasos, potenciando su
+            desarrollo a través del juego, la emoción y el respeto.<br />
+            Somos una familia educativa que disfruta cada pequeño logro y comparte la ilusión de
+            aprender cada día.
+          </p>
         </div>
-        <p>
-          En CEI La Casita, acompañamos a cada niño en sus primeros pasos, potenciando su desarrollo
-          a través del juego, la emoción y el respeto.<br />
-          Somos una familia educativa que disfruta cada pequeño logro y comparte la ilusión de
-          aprender cada día.
-        </p>
       </div>
-    </div>
-  </section>
+    </section>
+  </AnimAppear>
 
   <!-- SERVICIOS DESTACADOS -->
 
@@ -185,6 +186,15 @@ Así educamos nuestras capacidades perceptivas, sensitivas, representativas y si
   <AnimAppear animation="zoom-in" :delay="1150">
     <section class="ubicacion-section container">
       <h2 class="seccion-titulo">¿Dónde estamos?</h2>
+      <div class="ubicacion-mapa">
+        <iframe
+          src="https://www.google.com/maps?q=C.+Rub%C3%A9n+Dar%C3%ADo,+6,+18200+Maracena,+Granada,+Espa%C3%B1a&output=embed"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
       <div class="ubicacion-content">
         <div class="ubicacion-info">
           <p>
@@ -200,15 +210,6 @@ Así educamos nuestras capacidades perceptivas, sensitivas, representativas y si
           >
             Abrir en Google Maps
           </a>
-        </div>
-        <div class="ubicacion-mapa">
-          <iframe
-            src="https://www.google.com/maps?q=C.+Rub%C3%A9n+Dar%C3%ADo,+6,+18200+Maracena,+Granada,+Espa%C3%B1a&output=embed"
-            style="border: 0"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-          ></iframe>
         </div>
       </div>
     </section>
@@ -337,8 +338,9 @@ h2,
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 2em 0.5em 1.2em 0.5em;
-  clip-path: ellipse(100% 75% at 50% 0);
+  padding: 1.7em 0 3.5rem 0;
+
+  clip-path: ellipse(100% 80% at 50% 0);
 }
 
 .hero-video-bg {
@@ -513,8 +515,8 @@ h2,
   );
   border-radius: 2em;
   box-shadow: 0 0.12em 1.1em #00bfff15;
-  margin: 0 auto;
   padding: 0;
+  margin-top: -3em;
   width: 100%;
   max-width: 1100px;
 }
@@ -545,14 +547,23 @@ h2,
   margin: 0 auto 0 auto;
 }
 
+.services-home {
+  margin-top: -8em;
+}
 .service-list {
+  justify-content: center;
   display: grid;
   grid-template-columns: 1fr;
   width: 100%;
   margin: 0 auto 0 auto;
+  margin-top: 1em;
 }
 
 /* --------- GALERÍA DE INSTALACIONES --------- */
+.carousel-home {
+  margin-top: -4.1em;
+  justify-content: center;
+}
 .carousel-track {
   display: flex;
   gap: 1em;
@@ -721,21 +732,21 @@ h2,
 
 /* --------- UBICACIÓN --------- */
 .ubicacion-section {
-  margin: 2em auto 1.2em auto;
   max-width: 1100px;
   padding: 0;
+  justify-items: center;
 }
 
 .ubicacion-content {
   display: flex;
   flex-direction: column;
   gap: 1.4em;
-  align-items: center;
+  justify: center;
   width: 100%;
 }
 
 .ubicacion-info {
-  min-width: 160px;
+  min-width: 260px;
   max-width: 330px;
   font-size: 1.04em;
   color: var(--casita-negro);
@@ -780,8 +791,9 @@ h2,
 }
 
 /* Mapa responsivo y estilizado */
+
 .ubicacion-mapa {
-  min-width: 160px;
+  min-width: 200px;
   width: 94vw;
   max-width: 370px;
   border-radius: 1.1em;
@@ -791,27 +803,27 @@ h2,
 
 .ubicacion-mapa iframe {
   width: 100%;
-  height: 36vw;
-  min-height: 140px;
-  max-height: 270px;
+  height: 65vh;
+  min-height: 180px;
+  max-height: 370px;
   border: 0;
   border-radius: 1.1em;
   display: block;
 }
 
-@media (min-width: 820px) {
+@media (min-width: 400px) {
   .ubicacion-content {
     flex-direction: row;
     justify-content: center;
     gap: 2.5em;
-    align-items: flex-start;
+    align-items: center;
   }
   .ubicacion-info {
-    text-align: right;
-    align-items: flex-end;
+    text-align: center;
+    align-items: center;
   }
   .ubicacion-mapa {
-    max-width: 410px;
+    max-width: 50em;
   }
 }
 
@@ -905,10 +917,12 @@ h2,
   }
   .carousel-slide {
     min-width: 260px;
-    max-width: 270px;
+    max-width: 500px;
   }
   .carousel-slide img {
-    height: 160px;
+    height: 35vh;
+    width: 35vh;
+    margin: auto;
   }
   @media (min-width: 700px) {
     .service-list {
@@ -919,19 +933,23 @@ h2,
   }
 
   .about-img img {
-    width: 320px;
+    width: 42em;
   }
   .ubicacion-mapa {
-    max-width: 420px;
+    max-width: 90vh;
   }
 }
 @media (min-width: 1100px) {
   .about-home,
   .carousel-home,
   .services-home,
+  .instalaciones-home,
   .junta-section,
   .ubicacion-section {
-    max-width: 1100px;
+    justify-items: center;
+    max-width: 1200px;
+    margin-bottom: 1em;
+    margin-top: 1.2em;
   }
 }
 </style>
